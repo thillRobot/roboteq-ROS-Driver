@@ -96,27 +96,20 @@ private:
 	{
 		std::stringstream cmd_sub;
 
-		// differential steer (pure roll, no slip) kinematics added by Tristan Hill
-		// equations from Dr. Stephen Canfield 
-		// {v_x; omega}=[K]{omega_l; omega_r}
-		// [K]=[alpha_l*r/2 alpha_r*r/2
-   		//		-alpha_l*r/(2*b) alpha_r*r/(2*b)]
-   		// [K]^-1=[1/(alpha_l*r), -b/(alpha_l*r)
-		//		   1/(alpha_r*r),  b/(alpha_r*r)]
-		
 		float vx, omega, omega_l, omega_r, r, b, alpha_l, alpha_r;
 
-		r=.05; // wheel radius
-		b=.20; // robot half width
-		alpha_l=1; // transmission parameters
+		r=.05;
+		b=.20;
+
+		alpha_l=1;
 		alpha_r=1;
 
-		vx=msg.linear.x; // get forward and angular velocity from cmd_vel
+		vx=msg.linear.x;
 		omega=msg.angular.z;
 
-		omega_l=1/(alpha_l*r)*vx-b/(alpha_l*r)*omega; // compute left and right wheel angular velocities
-		omega_r=1/(alpha_r*r)*vx+b/(alpha_r*r)*omega; // these eq are the inverse kinematics 
-													  // {omega_l;omega_r}=[K]-1*{v_x; omega}
+		
+		omega_l=1/(alpha_l*r)*vx-b/(alpha_l*r)*omega;
+		omega_r=1/(alpha_r*r)*vx+b/(alpha_r*r)*omega;
 
 		cmd_sub << "!G 1"
 				<< " " << omega_l << "_"

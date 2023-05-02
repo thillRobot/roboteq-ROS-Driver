@@ -142,6 +142,7 @@ include_directories(
 add_executable(roboteq_motor_controller_driver_node
  #src/main.cpp
  src/roboteq_motor_controller_driver_node.cpp)
+ #src/diff_steer.cpp)
  #src/configservice.cpp)
 
 ## Rename C++ executable without prefix
